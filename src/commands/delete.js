@@ -1,18 +1,19 @@
-const config = require('config');
-const fs = require('fs');
-const path = require('path');
-const { checkFileExists } = require('../utils/utils');
+const config = require("config");
+const fs = require("fs");
+const path = require("path");
+const { checkFileExists } = require("../utils/utils");
 
 async function deleteFile(fileName) {
   try {
-    const filePath = path.join(config.get('FS_FILES_DIR'), fileName);
+    const filePath = path.join(config.get("FS_FILES_DIR"), fileName);
 
-    await checkFileExists(filePath)
-      .then(async (fileExists) => {
-        if (!fileExists) {
-          throw new Error(`FS operation failed. File "${filePath}" does not exist!`);
-        }
-      });
+    await checkFileExists(filePath).then(async (fileExists) => {
+      if (!fileExists) {
+        throw new Error(
+          `FS operation failed. File "${filePath}" does not exist!`,
+        );
+      }
+    });
 
     await fs.promises.unlink(filePath);
 
@@ -22,4 +23,4 @@ async function deleteFile(fileName) {
   }
 }
 
-deleteFile('fileToRemove.txt');
+deleteFile("fileToRemove.txt");
